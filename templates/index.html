@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Titanic Survival Prediction</title>
+
+    <!-- CSS LINK -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>Titanic Survival Predictor</h2>
+        <p class="subtitle">Enter passenger details to predict survival</p>
+
+        <form method="POST" action="/predict">
+
+            <label>Passenger Class</label>
+            <select name="pclass" required>
+                <option value="">Select Class</option>
+                <option value="1">1st Class</option>
+                <option value="2">2nd Class</option>
+                <option value="3">3rd Class</option>
+            </select>
+
+            <label>Gender</label>
+            <select name="sex" required>
+                <option value="">Select Gender</option>
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+            </select>
+
+            <label>Age</label>
+            <input type="number" name="age" step="any" placeholder="e.g. 25" required>
+
+            <label>Ticket Fare</label>
+            <input type="number" name="fare" step="any" placeholder="e.g. 32.5" required>
+
+            <label>Embarked Port</label>
+            <select name="embarked" required>
+                <option value="">Select Port</option>
+                <option value="0">Southampton (S)</option>
+                <option value="1">Cherbourg (C)</option>
+                <option value="2">Queenstown (Q)</option>
+            </select>
+
+            <label>Siblings / Spouse</label>
+            <input type="number" name="sibsp" placeholder="0" required>
+
+            <label>Parents / Children</label>
+            <input type="number" name="parch" placeholder="0" required>
+
+            <button type="submit">Predict Survival</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result 
+                {% if prediction == 'Survived' %}
+                    survived
+                {% else %}
+                    not-survived
+                {% endif %}
+            ">
+                {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
